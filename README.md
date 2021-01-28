@@ -2,17 +2,17 @@
 
 ## Trames et registres
 
-### Trames GÈnÈration flux
+### Trames G√©n√©ration flux
 
 
 Octet | Nom  | Description
 -----|------|-------------
-1|Nb_Octets| Nombre díoctets de la trame
-2|ID_Sys| SystËme dont la commande est sollicitÈ
-3|ID_Cmd| Commande sollicitÈ
+1|Nb_Octets| Nombre d‚Äôoctets de la trame
+2|ID_Sys| Syst√®me dont la commande est sollicit√©
+3|ID_Cmd| Commande sollicit√©
 4|State| Etat de la demande (OK ou KO)
 
-### Registres GÈnÈration flux
+### Registres G√©n√©ration flux
 
 State  | Valeur
 -----|-------------
@@ -23,12 +23,12 @@ Erreur | 0x2
 
 Octet | Nom  | Description
 -----|------|-------------
-1|Nb_Octets| Nombre díoctets de la trame
-2|ID_Sys| SystËme dont la commande est sollicitÈ
-3|ID_Cmd| Commande sollicitÈ
+1|Nb_Octets| Nombre d‚Äôoctets de la trame
+2|ID_Sys| Syst√®me dont la commande est sollicit√©
+3|ID_Cmd| Commande sollicit√©
 4|Type_flux| Flux DVI ou SDI
 5|Colorimetrie|YCbCr 4:2:2 ou 4:4:4
-6<br>7|Frequence| De 25 ‡ 165 MHz (330 avec connecteur B)
+6<br>7|Frequence| De 25 √† 165 MHz (330 avec connecteur B)
 8|Format_X| Format en X 
 9|Format_Y| Format en Y
 
@@ -48,12 +48,15 @@ YCbCr 4:2:2 | 0x2
 
 Octet | Nom  | Description
 -----|------|-------------
-1|Nb_Octets| Nombre díoctets de la trame
-2|ID_Sys| SystËme dont la commande est sollicitÈ
-3|ID_Cmd| Commande sollicitÈ
-4|Type_protocol| UART / I2C / SPI
-5<br>6|Baud| Baud rate si UART (multiple 9600)
-7<br>...<br>N|Data|Octets dÈdiÈs aux data. On peut en mettre autant qu'on veut (dans la limite du possible) car la longueur de la trame est dÈfinit avec Nb_Octets
+1|Nb_Octets|Nombre d‚Äôoctets de la trame
+2|ID_Sys|Syst√®me dont la commande est sollicit√©
+3|ID_Cmd|Commande sollicit√©
+4|Bus_type|Type de bus utilis√© :</br> 0x1 : SPI </br> 0x2 : I2C </br> 0x3 : UART
+5|Adresse|Adresse de l'esclave
+6|Taille_mot|Taille du mot seul √† transmettre en octet (hors sp√©cification de taille ou fr√©quence)
+7|Operateur|Nature de l'op√©rateur du facteur de bauds. _Exemple : 0 pour multiplication ; 1 pour division_
+8|Facteur_baud|Facteur (multiple de 9 600) du baud rate de transmission. **Dans le cas o√π Operateur = 0, la valeur de Facteur_baud multiplie 9 600. Dans le cas o√π Operateur = 1, la valeur de Facteur_baud divise 9 600.** </br>_Exemple : </br> Operateur = 1; Facteur_baud = 0x20 (32) ==> Bauds = 300 </br> Operateur = 0; Facteur_baud = 0x68 (104) ==> Bauds = 998 400_
+9 <br>...<br>n|Mot|Mot √† transmettre (d√©pend de Taille_mot)
 
 ### Registres BUS_COM
 
