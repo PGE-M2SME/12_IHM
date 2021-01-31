@@ -2,8 +2,11 @@
 
 ## Trames et registres
 
+Trames et registres reçu pour le STM32.
+
 ### Trames Génération flux
 
+/!\ Théorie pour l'instant
 
 Octet | Nom  | Description
 -----|------|-------------
@@ -19,30 +22,19 @@ State  | Valeur
 OK | 0x1
 Erreur | 0x2
 
-### Trames Analyse flux
+### Trames Analyse flux (En reception)
 
-Octet | Nom  | Description
------|------|-------------
-1|Nb_Octets| Nombre d’octets de la trame
-2|ID_Sys| Système dont la commande est sollicité
-3|ID_Cmd| Commande sollicité
-4|Type_flux| Flux DVI ou SDI
-5|Colorimetrie|YCbCr 4:2:2 ou 4:4:4
-6<br>7|Frequence| De 25 à 165 MHz (330 avec connecteur B)
-8|Format_X| Format en X 
-9|Format_Y| Format en Y
+Octet| Nom |Valeur| Description
+-----|-----|------|--------------
+1| Nb_Octets| 0x9 |Nombre d’octet de la trame
+2| ID_Sys| 0x3| Système dont la commande est sollicitée
+3| ID_Cmd| 0x1| SDI_INFO
+4| Vid_format| 2 bits| Se compose de 2 bits, il permet d’afficher la résolution (voir tableau ci-dessous)
+6| Frame_format| 3 bits| Se compose de 3 bits, il permet d’afficher le frame format (voir tableau ci-dessous)
+7| Vid_active| 1 bit| Une info d’un bit qui indique qu’une ligne du frame est transmise.
+8| vblank| 1 bit| Une info d’un bit, si égal 1 en reçoit un flux sinon on ne reçoit rien
+9| hblank| 1 bit |Un signal d’un bit est transmis après le transfert de la frame entière
 
-### Registres Analyse flux
-
-Type_flux  | Valeur
------|-------------
-SDI | 0x1
-DVI | 0x2
-
-Colorimetrie  | Valeur
------|-------------
-YCbCr 4:2:2 | 0x1
-YCbCr 4:2:2 | 0x2
 
 ### Trames BUS_COM
 
